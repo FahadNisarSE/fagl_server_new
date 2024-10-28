@@ -1,6 +1,6 @@
 import { doc, getDoc } from "firebase/firestore";
-import { getUser } from "./firebase-admin.ts";
-import { FIRESTORE_DB } from "./firebase.config.ts";
+import { getUser } from "./firebase-admin.js";
+import { FIRESTORE_DB } from "./firebase.config.js";
 
 export interface CommunityMember {
   uid: string;
