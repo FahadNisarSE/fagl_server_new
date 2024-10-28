@@ -1,0 +1,21 @@
+{
+  "name": "emergency_health_server",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.2",
+    "dotenv": "^16.4.5",
+    "firebase": "^11.0.1",
+    "firebase-admin": "^12.7.0",
+    "hono": "^4.6.7",
+    "nodemailer": "^6.9.15",
+    "whatsapp": "^0.0.5-Alpha"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "@types/nodemailer": "^6.4.16",
+    "tsx": "^4.7.1"
+  }
+}
