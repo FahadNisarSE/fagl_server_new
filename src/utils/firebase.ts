@@ -37,20 +37,15 @@ type User = {
 };
 
 const getUserById = async (userId: string): Promise<User | null> => {
-  try {
-    const db = getDatabase();
-    const userRef = ref(db, `users/${userId}`);
-    const snapshot = await get(userRef);
+  const db = getDatabase();
+  const userRef = ref(db, `users/${userId}`);
+  const snapshot = await get(userRef);
 
-    if (snapshot.exists()) {
-      const userData = snapshot.val();
-      return { id: userId, ...(userData as Omit<User, "id">) };
-    } else {
-      console.warn(`User with ID ${userId} not found`);
-      return null;
-    }
-  } catch (error) {
-    console.error("Error fetching user:", error);
+  if (snapshot.exists()) {
+    const userData = snapshot.val();
+    return { id: userId, ...(userData as Omit<User, "id">) };
+  } else {
+    console.warn(`User with ID ${userId} not found`);
     return null;
   }
 };

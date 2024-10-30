@@ -24,10 +24,9 @@ app.post("/:id", async (c) => {
   const requestBody = await c.req.json();
   const { name, latitude, longitude, address } = requestBody;
 
-
   try {
     const communityMembers = await getCommunityMembersById(id);
-    console.log("Community Members: ", {communityMembers});
+    console.log("Community Members: ", { communityMembers });
 
     communityMembers.forEach(async (member) => {
       try {
@@ -42,7 +41,10 @@ app.post("/:id", async (c) => {
     return c.json({ message: "Emails are being sent to community members." });
   } catch (error) {
     console.error("Error fetching community members: ", error);
-    return c.json({ error: "Failed to fetch community members" }, 500);
+    return c.json(
+      { error: "Failed to fetch community members", data: error },
+      500
+    );
   }
 });
 
