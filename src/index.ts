@@ -37,6 +37,9 @@ app.post("/:id", async (c) => {
     return c.json({
       message: "Emails are being sent to community members.",
       communityMembers,
+      id,
+      name,
+      address
     });
   } catch (error) {
     console.error("Error fetching community members: ", error);
