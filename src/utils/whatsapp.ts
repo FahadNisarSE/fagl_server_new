@@ -1,22 +1,17 @@
 const url = "https://graph.facebook.com/v21.0/476347172227559/messages";
-const token =
-  "EAAFE5EbHcQ4BOZCDoWsKL95KbthpnEoLsteQpseZCOFBXLfrVjvo8KGOkflST2Txhnaeyup6U1wt8NmY8kLsXwHDyuj0FFyZCrcQ2w1yMzJzZCoZAVBQ9ez6VyLhZAl9fN6ZCuvegzBKe1c9OZCvYrSCLIvRfx1kVgAJN1iCWAjA3kHKlCebZAZCW8V96urefPhWQjYOZBG9s9bWE6UJa3uA9ZAzClucDEmn";
 
 const sendMessage = async (
   recipientNumber: string,
   name: string,
   address: string
 ) => {
-  console.log("Recipent phone: ", recipientNumber);
   const data = {
     messaging_product: "whatsapp",
     to: recipientNumber,
     type: "template",
     template: {
-      name: "emergency_alert",
-      language: {
-        code: "en",
-      },
+      name: "emergency",
+      language: { code: "en_US" },
       components: [
         {
           type: "body",
@@ -32,7 +27,7 @@ const sendMessage = async (
   const response = await fetch(url, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),

@@ -15,8 +15,6 @@ app.get("/", (c) => {
 app.post("/:id", async (c) => {
   const id = c.req.param("id");
 
-  console.log("User id: ", id);
-
   if (!id) {
     return c.json({ error: "User id is required" }, 400);
   }
@@ -26,12 +24,11 @@ app.post("/:id", async (c) => {
 
   try {
     const communityMembers = await getCommunityMembersById(id);
-    console.log("Community Members: ", { communityMembers });
 
     communityMembers.forEach(async (member) => {
       await sendEmail(member.email, { name, address });
-      await sendMessage(member.phoneNumber, name, address);
-      console.log(`Email sent to: ${member.email}`);
+      const data = await sendMessage(member.phoneNumber, name, address);
+      console.log("Message sent to ", data);
     });
 
     return c.json({
@@ -39,7 +36,7 @@ app.post("/:id", async (c) => {
       communityMembers,
       id,
       name,
-      address
+      address,
     });
   } catch (error) {
     console.error("Error fetching community members: ", error);
