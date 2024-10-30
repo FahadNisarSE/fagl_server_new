@@ -29,13 +29,9 @@ app.post("/:id", async (c) => {
     console.log("Community Members: ", { communityMembers });
 
     communityMembers.forEach(async (member) => {
-      try {
-        await sendEmail(member.email, { name, address });
-        await sendMessage(member.phoneNumber, name, address);
-        console.log(`Email sent to: ${member.email}`);
-      } catch (emailError) {
-        console.error(`Failed to send email to ${member.email}:`, emailError);
-      }
+      await sendEmail(member.email, { name, address });
+      await sendMessage(member.phoneNumber, name, address);
+      console.log(`Email sent to: ${member.email}`);
     });
 
     return c.json({
