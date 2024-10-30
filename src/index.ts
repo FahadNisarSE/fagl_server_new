@@ -4,6 +4,7 @@ import { Hono } from "hono";
 
 import { sendEmail } from "./utils/nodmailer.js";
 import { getCommunityMembersById } from "./utils/firebase.js";
+import sendMessage from "./utils/whatsapp.js";
 
 const app = new Hono();
 
@@ -23,15 +24,15 @@ app.post("/:id", async (c) => {
   const requestBody = await c.req.json();
   const { name, latitude, longitude, address } = requestBody;
 
-  console.log("Received request body: ", requestBody);
 
   try {
     const communityMembers = await getCommunityMembersById(id);
-    console.log("Community Members: ", communityMembers);
+    console.log("Community Members: ", {communityMembers});
 
     communityMembers.forEach(async (member) => {
       try {
         await sendEmail(member.email, { name, address });
+        await sendMessage(member.phoneNumber, name, address);
         console.log(`Email sent to: ${member.email}`);
       } catch (emailError) {
         console.error(`Failed to send email to ${member.email}:`, emailError);
