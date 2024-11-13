@@ -9,7 +9,7 @@ import sendMessage from "./utils/whatsapp.js";
 const app = new Hono();
 
 app.get("/", (c) => {
-  return c.text("Hello Hono!");
+  return c.text("Hello Hono 123!");
 });
 
 app.post("/:id", async (c) => {
