@@ -47,12 +47,12 @@ app.post("/:id", async (c) => {
   }
 });
 
-const port = 3000;
+const port = process.env.PORT as string;
 console.log(`Server is running on http://localhost:${port}`);
 
 serve({
   fetch: app.fetch,
-  port,
+  port: Number(port),
 });
 
 export default app;
